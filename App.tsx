@@ -1,20 +1,71 @@
+import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useFonts } from 'expo-font';
+import {
+  Montserrat_800ExtraBold,
+  Montserrat_700Bold,
+  Montserrat_600SemiBold,
+  Montserrat_500Medium,
+  Montserrat_400Regular,
+} from '@expo-google-fonts/montserrat';
+import {
+  JetBrainsMono_600SemiBold,
+  JetBrainsMono_500Medium,
+  JetBrainsMono_400Regular,
+} from '@expo-google-fonts/jetbrains-mono';
 
-export default function App() {
+import { ThemeProvider, useTheme } from './src/context/ThemeContext';
+import { RegistrosProvider } from './src/context/RegistrosContext';
+import { ListaScreen } from './src/screens/ListaScreen';
+import { CadastroScreen } from './src/screens/CadastroScreen';
+import { DetalheScreen } from './src/screens/DetalheScreen';
+import { RootStackParamList } from './src/types';
+
+const Stack = createStackNavigator<RootStackParamList>();
+
+function AppNavigator() {
+  const { isDark } = useTheme();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style={isDark ? 'light' : 'dark'} />
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Lista" component={ListaScreen} />
+          <Stack.Screen name="Cadastro" component={CadastroScreen} />
+          <Stack.Screen name="Detalhe" component={DetalheScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default function App() {
+  const [fontsLoaded] = useFonts({
+    Montserrat_800ExtraBold,
+    Montserrat_700Bold,
+    Montserrat_600SemiBold,
+    Montserrat_500Medium,
+    Montserrat_400Regular,
+    JetBrainsMono_600SemiBold,
+    JetBrainsMono_500Medium,
+    JetBrainsMono_400Regular,
+  });
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider>
+        <RegistrosProvider>
+          <AppNavigator />
+        </RegistrosProvider>
+      </ThemeProvider>
+    </GestureHandlerRootView>
+  );
+}

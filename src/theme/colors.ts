@@ -42,7 +42,32 @@ export const universalColors = {
   blueSoft: 'rgba(61,136,246,0.12)',
 } as const;
 
-export type ThemeColors = typeof darkColors & typeof universalColors;
+// Use a widened string type so both dark and light palettes satisfy it
+export type ThemeColors = {
+  bg: string;
+  bg2: string;
+  surface: string;
+  surface2: string;
+  surfaceHi: string;
+  line: string;
+  line2: string;
+  line3: string;
+  ink: string;
+  ink2: string;
+  inkMute: string;
+  inkGhost: string;
+  accent: string;
+  accentSoft: string;
+  accentDeep: string;
+  red: string;
+  redSoft: string;
+  green: string;
+  greenSoft: string;
+  yellow: string;
+  yellowSoft: string;
+  blue: string;
+  blueSoft: string;
+};
 
 export function getPalette(isDark: boolean): ThemeColors {
   return {
