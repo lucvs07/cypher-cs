@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import { useTheme } from '../context/ThemeContext';
 import { useRegistros } from '../context/RegistrosContext';
 import { TopBar } from '../components/TopBar';
@@ -18,7 +18,7 @@ import { RegistroIndustrial, RootStackParamList } from '../types';
 import { fontFamily, fontSize } from '../theme/typography';
 import { borderRadius, spacing } from '../theme/spacing';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Cadastro'>;
+type Props = StackScreenProps<RootStackParamList, 'Cadastro'>;
 
 type StatusOption = RegistroIndustrial['status'];
 

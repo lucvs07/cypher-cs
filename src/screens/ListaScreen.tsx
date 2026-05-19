@@ -7,17 +7,17 @@ import {
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '../context/ThemeContext';
 import { useRegistros } from '../context/RegistrosContext';
 import { TopBar } from '../components/TopBar';
 import { Dock } from '../components/Dock';
 import { RegistroCard } from '../components/RegistroCard';
+import { StackScreenProps } from '@react-navigation/stack';
 import { RegistroIndustrial, RootStackParamList } from '../types';
 import { fontFamily, fontSize } from '../theme/typography';
 import { layout, borderRadius, spacing } from '../theme/spacing';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Lista'>;
+type Props = StackScreenProps<RootStackParamList, 'Lista'>;
 
 export function ListaScreen({ navigation }: Props) {
   const { colors } = useTheme();

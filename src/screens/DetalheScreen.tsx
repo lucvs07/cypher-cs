@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { StackScreenProps } from '@react-navigation/stack';
 import { useTheme } from '../context/ThemeContext';
 import { TopBar } from '../components/TopBar';
 import { StatusBadge } from '../components/StatusBadge';
@@ -8,17 +8,18 @@ import { RootStackParamList } from '../types';
 import { fontFamily, fontSize } from '../theme/typography';
 import { borderRadius, spacing } from '../theme/spacing';
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Detalhe'>;
+type Props = StackScreenProps<RootStackParamList, 'Detalhe'>;
 
 export function DetalheScreen({ route, navigation }: Props) {
   const { registro } = route.params;
   const { colors } = useTheme();
 
-  const stripeColor = {
+  const stripeMap: Record<string, string> = {
     normal: colors.green,
     alerta: colors.yellow,
     critico: colors.red,
-  }[registro.status];
+  };
+  const stripeColor = stripeMap[registro.status];
 
   return (
     <View style={[styles.screen, { backgroundColor: colors.bg }]}>
