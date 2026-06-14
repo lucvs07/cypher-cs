@@ -9,6 +9,7 @@ import {
   View,
 } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 import { useRegistros } from '../context/RegistrosContext';
 import { TopBar } from '../components/TopBar';
@@ -31,6 +32,7 @@ const STATUS_OPTIONS: { value: StatusOption; label: string }[] = [
 export function CadastroScreen({ navigation }: Props) {
   const { colors } = useTheme();
   const { adicionarRegistro } = useRegistros();
+  const insets = useSafeAreaInsets();
 
   const [nome, setNome] = useState('');
   const [descricao, setDescricao] = useState('');
@@ -77,7 +79,7 @@ export function CadastroScreen({ navigation }: Props) {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <ScrollView
-          contentContainerStyle={styles.content}
+          contentContainerStyle={[styles.content, { paddingBottom: spacing.xxxl + insets.bottom }]}
           keyboardShouldPersistTaps="handled"
         >
           {/* NOME */}
@@ -160,7 +162,6 @@ const styles = StyleSheet.create({
   content: {
     padding: spacing.lg,
     gap: spacing.lg,
-    paddingBottom: spacing.xxxl,
   },
   statusSection: {
     gap: spacing.xs,

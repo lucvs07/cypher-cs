@@ -17,6 +17,7 @@ import {
   JetBrainsMono_400Regular,
 } from '@expo-google-fonts/jetbrains-mono';
 
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { ThemeProvider, useTheme } from './src/context/ThemeContext';
 import { RegistrosProvider } from './src/context/RegistrosContext';
 import { ListaScreen } from './src/screens/ListaScreen';
@@ -61,11 +62,13 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider>
-        <RegistrosProvider>
-          <AppNavigator />
-        </RegistrosProvider>
-      </ThemeProvider>
+      <SafeAreaProvider>
+        <ThemeProvider>
+          <RegistrosProvider>
+            <AppNavigator />
+          </RegistrosProvider>
+        </ThemeProvider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 }

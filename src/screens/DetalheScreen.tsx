@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { StackScreenProps } from '@react-navigation/stack';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 import { TopBar } from '../components/TopBar';
 import { StatusBadge } from '../components/StatusBadge';
@@ -13,6 +14,7 @@ type Props = StackScreenProps<RootStackParamList, 'Detalhe'>;
 export function DetalheScreen({ route, navigation }: Props) {
   const { registro } = route.params;
   const { colors } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const stripeMap: Record<string, string> = {
     normal: colors.green,
@@ -30,7 +32,7 @@ export function DetalheScreen({ route, navigation }: Props) {
         onBack={() => navigation.goBack()}
       />
 
-      <ScrollView contentContainerStyle={styles.scroll}>
+      <ScrollView contentContainerStyle={[styles.scroll, { paddingBottom: spacing.xxxl + insets.bottom }]}>
         <View
           style={[
             styles.card,
@@ -87,7 +89,6 @@ const styles = StyleSheet.create({
   },
   scroll: {
     padding: spacing.lg,
-    paddingBottom: spacing.xxxl,
   },
   card: {
     borderRadius: borderRadius.card,

@@ -7,6 +7,7 @@ import {
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 import { useRegistros } from '../context/RegistrosContext';
 import { TopBar } from '../components/TopBar';
@@ -22,9 +23,11 @@ type Props = StackScreenProps<RootStackParamList, 'Lista'>;
 export function ListaScreen({ navigation }: Props) {
   const { colors } = useTheme();
   const { registros } = useRegistros();
+  const insets = useSafeAreaInsets();
 
+  const DOCK_BOTTOM = insets.bottom + 20;
   const DOCK_HEIGHT = layout.dockHeight;
-  const FAB_BOTTOM = DOCK_HEIGHT + 20 + spacing.base;
+  const FAB_BOTTOM = DOCK_BOTTOM + DOCK_HEIGHT + spacing.base;
 
   const renderItem = ({ item }: { item: RegistroIndustrial }) => (
     <RegistroCard
@@ -52,6 +55,7 @@ export function ListaScreen({ navigation }: Props) {
         ListEmptyComponent={renderEmpty}
         contentContainerStyle={[
           styles.listContent,
+          { paddingBottom: DOCK_BOTTOM + DOCK_HEIGHT + spacing.lg + 56 + spacing.base },
           registros.length === 0 && styles.listEmpty,
         ]}
         ItemSeparatorComponent={() => <View style={{ height: layout.cardGapSm }} />}
@@ -84,7 +88,6 @@ const styles = StyleSheet.create({
   },
   listContent: {
     padding: spacing.lg,
-    paddingBottom: layout.dockHeight + 20 + spacing.lg + 56 + spacing.base,
   },
   listEmpty: {
     flex: 1,

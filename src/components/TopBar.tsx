@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 import { fontFamily, fontSize } from '../theme/typography';
 import { layout, spacing } from '../theme/spacing';
@@ -14,6 +15,7 @@ type TopBarProps = {
 
 export function TopBar({ title, subtitle, showBack = false, onBack }: TopBarProps) {
   const { colors, isDark, toggleTheme } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const bgColor = isDark
     ? 'rgba(13,15,20,0.84)'
@@ -26,6 +28,8 @@ export function TopBar({ title, subtitle, showBack = false, onBack }: TopBarProp
         {
           backgroundColor: bgColor,
           borderBottomColor: colors.line,
+          paddingTop: insets.top,
+          height: layout.topBarHeight + insets.top,
         },
       ]}
     >

@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useTheme } from '../context/ThemeContext';
 import { layout, borderRadius, spacing } from '../theme/spacing';
 
@@ -12,6 +13,7 @@ type DockProps = {
 
 export function Dock({ activeRoute, onPressLista, onPressCadastro }: DockProps) {
   const { colors, isDark } = useTheme();
+  const insets = useSafeAreaInsets();
 
   const dockBg = isDark
     ? 'rgba(21,24,31,0.82)'
@@ -24,7 +26,7 @@ export function Dock({ activeRoute, onPressLista, onPressCadastro }: DockProps) 
   const isCadastroActive = activeRoute === 'Cadastro';
 
   return (
-    <View style={styles.wrapper}>
+    <View style={[styles.wrapper, { bottom: insets.bottom + 20 }]}>
       <View
         style={[
           styles.dock,
@@ -77,7 +79,6 @@ export function Dock({ activeRoute, onPressLista, onPressCadastro }: DockProps) 
 const styles = StyleSheet.create({
   wrapper: {
     position: 'absolute',
-    bottom: 20,
     left: 0,
     right: 0,
     alignItems: 'center',
